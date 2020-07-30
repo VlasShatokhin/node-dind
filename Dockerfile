@@ -1,10 +1,8 @@
 # Args
-ARG NODE_VERSION
+ARG NODE_VERSION=14.6.0
 
-# Pull base image
 FROM node:${NODE_VERSION}-slim
 
-# Let's start with some basic stuff.
 RUN apt-get update -qq && apt-get install -qqy \
     apt-transport-https \
     ca-certificates \
@@ -12,7 +10,9 @@ RUN apt-get update -qq && apt-get install -qqy \
     lxc \
     iptables
 
-# Install Docker from Docker Inc. repositories.
+# Installing docker
 RUN curl -sSL https://get.docker.com/ | sh
+
+RUN apt-get clean
 
 CMD service docker start && /bin/bash
