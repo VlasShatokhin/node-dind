@@ -1,18 +1,24 @@
 # Args
-ARG NODE_VERSION=14.6.0
+ARG NODE_VERSION=14.7.0
 
 FROM node:${NODE_VERSION}-slim
 
-RUN apt-get update -qq && apt-get install -qqy \
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y -qq --no-install-recommends \
     apt-transport-https \
     ca-certificates \
     curl \
     lxc \
-    iptables
+    iptables && \
+    apt-get clean autoclean
 
 # Installing docker
 RUN curl -sSL https://get.docker.com/ | sh
 
-RUN apt-get clean
+RUN apt-get clean autoclean
+
+# Cleanup
+RUN rm -rf /var/lib/apt/* /var/lib/cache/* /var/lib/log/*
 
 CMD service docker start && /bin/bash

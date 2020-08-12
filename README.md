@@ -2,7 +2,7 @@
 
 ## Building the image
 ```sh
-NODE_VERSION=14.6.0
+NODE_VERSION=14.7.0
 
 IMAGE_NAME=vlasshatokhin/node-dind
 IMAGE_TAG=${NODE_VERSION}
